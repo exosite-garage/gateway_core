@@ -2,7 +2,7 @@
 About Gateway_core
 ================================================================================
 
-The gateway_core is a Exosite one platform gateway application with following features: 
+The gateway_core is an Exosite one platform gateway application with following features: 
 
 * Automatically activate device client in one platform given proper Vendor/Model/SerialNumber.
 * Download user application stored in one platform and launch the application.
@@ -17,20 +17,22 @@ License is BSD, Copyright 2012, Exosite LLC (see LICENSE file)
 QUICK START
 ================================================================================
 
-1. Create a new clonable device with whatever data sources are appropriate
+1. Create a new clonable device with whatever data sources are appropriate.
 
-2. Create a new Client Model, using the `RID` of the above device.
+2. In the cloned device, also create a data source using "command" as the alias.
 
-3. Add some valid serial numbers to the Client Model
+3. Create a new Client Model, using the `RID` of the above device.
 
-4. Edit "options.cfg" to have correct values based on your Client Model.
+4. Add some valid serial numbers to the Client Model
+
+5. Edit "options.cfg" to have correct values based on your Client Model.
    Update the other items to suit:
 
   [setup]  
   vendor_name = VENDOR_NAME  
   model_name = MODEL_NAME  
-  interface_type = NETWORK_INTERFACE  
-  uuid_file = UUID_FILE_LOCATION  
+  interface_type = NETWORK_INTERFACE*  
+  uuid_file = UUID_FILE_LOCATION*  
   check_interval = 5  
   onep_server = m2.exosite.com  
   onep_port = 80  
@@ -41,6 +43,16 @@ QUICK START
   datastore_interval = 3  
   app_id = gateway_core  
   log_level = info  
+  
+  --) NETWORK_INTERFACE can be set to 'eth0' or 'uuid'. If eth0 is used,
+      add the MAC address of localhost as a serial number and add a device with
+      that serial number. No need to change uuid file location.
+
+  --) If 'uuid' is used as network interface, the uuid_file must be specified to
+      indicate the file contaning uuid information structure like:
+
+     [UUID]  
+     uuid = 01234UUIDVALUE01234
 
   [network]  
   platform = janus_400ap  
@@ -55,7 +67,7 @@ QUICK START
   for RETRY_COUNT times, then core will try to restart the network.
   The NETWORK_TYPE could be 'gsm' or 'cdma'
 
-5. Modify the gateway_core_options.cfg file to suit:  
+6. Modify the gateway_core_options.cfg file to suit:  
     --) Add any apps the system shoud load to the apps_list line, separating
     the apps by a comma.  The section header MUST match the app_id (
     (above) with the suffix '_config'.  If any apps are added or removed
@@ -80,32 +92,26 @@ QUICK START
   [app1_config]  
   version = 1.0
 
-    --) Set NETWORK_INTERFACE to network interface like eth0, the MAC address
-    will be retrieved as serial_number.
 
-    --) To use UUID, the value of interface_type must be 'uuid' and value of
-    uuid_file must be specified to indicate the file contaning uuid
-    information structure like:
-
-  [UUID]  
-  uuid = 01234UUIDVALUE01234
-
-6. Upload the gateway_core_options.cfg file as a content file named
+7. Upload the gateway_core_options.cfg file as a content file named
    "gateway_core_options" to the Client Model you created
 
-7. The "apps_template" folder contains example of simple app called
+8. The "apps_template" folder contains example of simple app called
    "template.py".  Use this to create your own apps.
 
-8. Upload your apps to the Client Model as content files, naming them
-   with the same name as you listed them in the options file above
+9. Upload your apps to the Client Model as content files, naming them
+   with the same name as you listed in the options file above
 
-9. Start running gateway_core:
+10. Start running gateway_core:
 
    $python ./boot.pyc
 
 For Your Information:  
+* To reset gateway_core, send 'reset' to the 'command' dataport under the
+  provisioned device.
+
 * The "apps" folder will be used to store the application script at run time
-  and should not be modified by user
+  and should not be modified by user.
 
 * The provisioned CIK for each individual device is stored in a hidden
   file called ".exosite" in the python folder.  This file can be read
@@ -194,7 +200,7 @@ Gateway Application Development Guideline
   
    * upload this config file.  
 
-  For 'gateway application option file', please refer to step 5 in Installation.
+  For 'gateway application option file', please refer to step 6 in Installation.
 
   To restart application, modify 'version' as below and upload again.
 
