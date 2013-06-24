@@ -4,3 +4,8 @@ CHANGE LOG
 0.1.0
 -----
 + Initial release.
+
+0.1.1
+-----
++ Updated Network Monitoring to support interval specified in config file (seconds) between pings
+

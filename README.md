@@ -65,7 +65,7 @@ QUICK START
   Currently, this is available only on 'janus_400ap' platform. The core
   will ping the IP_TO_PING for every PING_INTERVAL seconds, if it failed
   for RETRY_COUNT times, then core will try to restart the network.
-  The NETWORK_TYPE could be 'gsm' or 'cdma'
+  The NETWORK_TYPE could be 'gsm' or 'cdma864'
 
 6. Modify the gateway_core_options.cfg file to suit:  
     --) Add any apps the system shoud load to the apps_list line, separating
