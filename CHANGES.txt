@@ -9,3 +9,8 @@ CHANGE LOG
 -----
 + Updated Network Monitoring to support interval specified in config file (seconds) between pings
 
+0.1.2
+-----
++ Fixed issue with writing the status. Uses Pyonep Datastore write function instead of record. 
++ Allow options.cfg to set Datastore logging
+
